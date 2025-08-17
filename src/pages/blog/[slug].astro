@@ -1,0 +1,88 @@
+---
+export async function getStaticPaths() {
+  const posts = [
+    { 
+      slug: "first-post", 
+      title: "First Post",
+      date: "2025-08-17",
+      content: "This is your first blog post. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae justo vel purus volutpat eleifend. Nullam eget lectus vel nisi sollicitudin tincidunt."
+    },
+    { 
+      slug: "another-post", 
+      title: "Another Post",
+      date: "2025-08-17",
+      content: "This is another blog post with MDX content. Proin eget tortor risus. Curabitur aliquet quam id dui posuere blandit. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus."
+    }
+  ];
+  
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{post.title} | Your Blog</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <header>
+        <h1>{post.title}</h1>
+      </header>
+      
+      <main class="blog-content">
+        <div class="meta">
+          <span class="date">{post.date}</span>
+          <a href="/blog" class="back-link">← All Posts</a>
+        </div>
+        
+        <article>
+          {post.content}
+        </article>
+      </main>
+      
+      <footer>
+        <a href="/blog">Back to Blog</a>
+        <a href="/">Home</a>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .blog-content {
+    margin: 2rem 0;
+  }
+  
+  .meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--link-color);
+    padding-bottom: 1rem;
+  }
+  
+  .date {
+    color: var(--link-color);
+  }
+  
+  article {
+    line-height: 1.8;
+  }
+  
+  .back-link:hover::after {
+    width: 0;
+  }
+  
+  footer {
+    margin-top: 3rem;
+    display: flex;
+    gap: 2rem;
+  }
+</style>

@@ -1,0 +1,87 @@
+---
+const allPosts = [
+  { 
+    title: "First Post", 
+    slug: "first-post",
+    date: "2025-08-17",
+    excerpt: "This is your first blog post."
+  },
+  { 
+    title: "Another Post", 
+    slug: "another-post",
+    date: "2025-08-17",
+    excerpt: "This is another blog post with MDX content."
+  }
+];
+---
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Posts | Your Portfolio</title>
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <header>
+        <h1>Blog Posts</h1>
+        <a href="/">Back to Home</a>
+      </header>
+      
+      <main>
+        <ul class="post-list">
+          {allPosts.map(post => (
+            <li class="post-item">
+              <a href={`/blog/${post.slug}`}>
+                <h2>{post.title}</h2>
+                <p class="date">{post.date}</p>
+                <p>{post.excerpt}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </main>
+      
+      <footer>
+        <a href="/">Back to Home</a>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .post-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .post-item {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--link-color);
+    padding-bottom: 1rem;
+  }
+  
+  .post-item:last-child {
+    border-bottom: none;
+  }
+  
+  .post-item a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .post-item a:hover {
+    color: var(--link-hover-color);
+  }
+  
+  .post-item a:hover::after {
+    width: 0;
+  }
+  
+  .date {
+    color: var(--link-color);
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+  }
+</style>
